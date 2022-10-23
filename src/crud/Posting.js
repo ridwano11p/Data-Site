@@ -12,6 +12,7 @@ const Posting = () => {
   const [error, setError] = useState("");
   const api =
     "https://k4w98whhc5.execute-api.ap-southeast-1.amazonaws.com/Prod/api/users";
+
   const dbdata = {
     id: id,
     userName: userName,
@@ -29,7 +30,7 @@ const Posting = () => {
         method: "post",
         url: api,
         data: dbdata,
-        headers: "application/json",
+        headers: { "Content-Type": "application/json" },
       });
     } catch (e) {
       setError(e.message);
