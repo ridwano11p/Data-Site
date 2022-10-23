@@ -27,16 +27,6 @@ export default function AxiosTable({ fixtures }) {
           <td>{user.address}</td>
           <td>{user.phone}</td>
           <td>{user.status}</td>
-          <td>
-            <button className="  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-              Edit
-            </button>
-          </td>
-          <td>
-            <button className="  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-              Delete
-            </button>
-          </td>
         </tr>
       );
     });
@@ -61,9 +51,6 @@ export default function AxiosTable({ fixtures }) {
             <th>Adress</th>
             <th>Phone</th>
             <th>Status</th>
-
-            <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>
