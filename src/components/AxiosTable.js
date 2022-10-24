@@ -10,12 +10,12 @@ export default function AxiosTable({ fixtures }) {
 
   const [data, setData] = useState([]);
 
-  const getData = () => {
+  const getData = (e) => {
     Axios.get(url).then((json) => setData(json.data));
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [data]);
 
   const renderTable = () => {
     return data.map((user) => {
