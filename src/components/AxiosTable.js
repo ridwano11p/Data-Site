@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import Table from "react-bootstrap/Table";
 import Posting from "../crud/Posting";
+import Putting from "../crud/Putting";
 
 export default function AxiosTable({ fixtures }) {
   const url =
@@ -27,6 +28,7 @@ export default function AxiosTable({ fixtures }) {
           <td>{user.address}</td>
           <td>{user.phone}</td>
           <td>{user.status}</td>
+          <td>{<Putting user={user} />}</td>
         </tr>
       );
     });
@@ -51,6 +53,7 @@ export default function AxiosTable({ fixtures }) {
             <th>Adress</th>
             <th>Phone</th>
             <th>Status</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>
