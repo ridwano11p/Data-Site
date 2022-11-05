@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: black;
-}
+
 a:hover {
 color: gold;
+}
+#herobody{
+    background-image: url("./images/image1.jpg");
 }

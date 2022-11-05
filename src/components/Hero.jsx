@@ -7,8 +7,9 @@ const Hero = () => {
     <div className="text-white ">
       <div
         className="  w-full h-[690px]  mx-auto text-center flex flex-col justify-center
-      bg-gradient-to-r from-red-500 to-fuchsia-500
+      
       "
+        id="herobody"
       >
         <p className="text-[#00df9a] font-bold p-2">
           DTATA SITE FOR API REQUESTS AND CRUD FUNCTIONALITY.
