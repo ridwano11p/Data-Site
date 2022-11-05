@@ -53,10 +53,16 @@ const Posting = () => {
         onClick={() => {
           setShowModal(true);
         }}
+<<<<<<< HEAD
         className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight
           rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg
          focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out
          "
+=======
+        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+        font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700
+         dark:focus:ring-blue-800"
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
         type="button"
         data-modal-toggle="defaultModal"
       >

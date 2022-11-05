@@ -4,7 +4,15 @@ import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 const Deleting = (props) => {
   const [id, setId] = useState(props.user.id);
+<<<<<<< HEAD
 
+=======
+  const [userName, setUsername] = useState(props.user.userName);
+  const [role, setRole] = useState(props.user.role);
+  const [address, setAddress] = useState(props.user.address);
+  const [phone, setPhone] = useState(props.user.phone);
+  const [status, setStatus] = useState(props.user.status);
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
   const [error, setError] = useState("");
   const [showmodal, setShowModal] = useState(false);
   const api =
@@ -12,6 +20,14 @@ const Deleting = (props) => {
 
   const dbdata = {
     id: id,
+<<<<<<< HEAD
+=======
+    userName: userName,
+    role: role,
+    address: address,
+    phone: phone,
+    status: status,
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
   };
 
   function PreFillForm() {
@@ -35,8 +51,18 @@ const Deleting = (props) => {
       setError(e.message);
       console.log(e.message);
     }
+<<<<<<< HEAD
     // close modal  after submit
 
+=======
+    // clear sates  after submit
+    setId("");
+    setUsername("");
+    setRole("");
+    setAddress("");
+    setPhone("");
+    setStatus("");
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
     setShowModal(false);
   };
 
@@ -67,7 +93,23 @@ const Deleting = (props) => {
                 <span class="block w-full text-xl uppercase font-bold mb-4">
                   Delete User
                 </span>
+<<<<<<< HEAD
                 <span class="block w-full text-xl uppercase font-bold mb-4"></span>
+=======
+                <span class="block w-full text-xl uppercase font-bold mb-4">
+                  User Id:{id}
+                  <br></br>
+                  User Name:{userName}
+                  <br></br>
+                  User Role:{role}
+                  <br></br>
+                  User Address:{address}
+                  <br></br>
+                  User Phone :{phone}
+                  <br></br>
+                  User Status:{status}
+                </span>
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
                 <p className="md:text-2xl text-xl font-bold ">
                   Are You sure you want to delete this user?
                 </p>

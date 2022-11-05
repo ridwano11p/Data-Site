@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+<<<<<<< HEAD
 
+=======
+body{
+    background-color: rgb(19, 8, 82);
+}
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
 a:hover {
 color: gold;
 }

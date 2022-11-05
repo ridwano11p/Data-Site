@@ -51,6 +51,7 @@ export default function NavBar() {
           </div>
         </div>
         <div>
+<<<<<<< HEAD
           <div
             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
               navbar ? "block" : "hidden"
@@ -64,6 +65,40 @@ export default function NavBar() {
                 <Link to={"/Api"}>Api</Link>
               </li>
             </ul>
+=======
+          <Link to={"/Api"}>
+            <li className="p-4">Api</li>
+          </Link>
+        </div>
+      </ul>
+      <div onClick={handleNav} className="block md:hidden">
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+      </div>
+      <ul
+        className={
+          nav
+            ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#210958] ease-in-out duration-500"
+            : "ease-in-out duration-500 fixed left-[-100%]"
+        }
+      >
+        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
+          DATASITE.
+        </h1>
+        <div>
+          <Link to={"/"}>
+            <li className="p-4 border-b border-gray-600">Home</li>
+          </Link>
+        </div>
+        <div>
+          <Link to={"/Api"}>
+            <li className="p-4 border-b border-gray-600">Api</li>
+          </Link>
+        </div>
+      </ul>
+    </div>
+  );
+};
+>>>>>>> 8edcd6e8ee6880c12663ed42f5be86424ac59a3f
 
             <div className="mt-3 space-y-2 lg:hidden md:inline-block">
               <a
