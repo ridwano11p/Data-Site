@@ -1,44 +1,101 @@
-import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
-  const [nav, setNav] = useState(false);
-
-  const handleNav = () => {
-    setNav(!nav);
-  };
+export default function NavBar() {
+  const [navbar, setNavbar] = useState(false);
 
   return (
-    <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white">
-      <h1 className="w-full text-3xl font-bold text-[#00df9a]">DATASITE.</h1>
-      <ul className="hidden md:flex">
-        <li className="p-4">Home</li>
-        <li className="p-4">Company</li>
-        <li className="p-4">Resources</li>
-        <li className="p-4">About</li>
-        <li className="p-4">Contact</li>
-      </ul>
-      <div onClick={handleNav} className="block md:hidden">
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
-      </div>
-      <ul
-        className={
-          nav
-            ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500"
-            : "ease-in-out duration-500 fixed left-[-100%]"
-        }
-      >
-        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
-          DATASITE.
-        </h1>
-        <li className="p-4 border-b border-gray-600">Home</li>
-        <li className="p-4 border-b border-gray-600">Company</li>
-        <li className="p-4 border-b border-gray-600">Resources</li>
-        <li className="p-4 border-b border-gray-600">About</li>
-        <li className="p-4">Contact</li>
-      </ul>
-    </div>
-  );
-};
+    <nav className="w-full bg-gradient-to-r from-red-500 to-fuchsia-500 shadow">
+      <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <div>
+          <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <Link to={"/"}>
+              <h2 className="text-2xl font-bold text-white">DataSite</h2>
+            </Link>
+            <div className="md:hidden">
+              <button
+                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                onClick={() => setNavbar(!navbar)}
+              >
+                {navbar ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              navbar ? "block" : "hidden"
+            }`}
+          >
+            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+              <li className="text-white hover:text-indigo-200">
+                <Link to={"/"}>Home</Link>
+              </li>
+              <li className="text-white hover:text-indigo-200">
+                <Link to={"/Api"}>Api</Link>
+              </li>
+            </ul>
 
-export default NavBar;
+            <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+              <a
+                href="javascript:void(0)"
+                className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+              >
+                Sign in
+              </a>
+              <a
+                href="javascript:void(0)"
+                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+              >
+                Sign up
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="hidden space-x-2 md:inline-block">
+          <Link
+            to={"/Signin"}
+            className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+          >
+            Sign in
+          </Link>
+          <Link
+            to={"/Signup"}
+            className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+          >
+            Sign up
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+}

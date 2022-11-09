@@ -1,23 +1,35 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Table from "react-bootstrap/Table";
+import Posting from "../crud/Posting";
+import Putting from "../crud/Putting";
+import Deleting from "../crud/Deleting";
 
-export default function UserList() {
-  const url =
-    "https://1bferubrff.execute-api.ap-southeast-1.amazonaws.com/dev/userslist";
+export default function AxiosTable({ fixtures }) {
+  const url = url;
 
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  const getData = (e) => {
     Axios.get(url).then((json) => setData(json.data));
-  }, []);
+  };
+  useEffect(() => {
+    getData();
+  }, [data]);
 
   const renderTable = () => {
     return data.map((user) => {
       return (
         <tr>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
+          <td>{user.id}</td>
+          <td>{user.userName}</td>
+          <td>{user.role}</td>
+          <td>{user.address}</td>
+          <td>{user.phone}</td>
+          <td>{user.status}</td>
+          <td>{<Putting user={user} />}</td>
+          <td>{<Deleting user={user} />}</td>
         </tr>
       );
     });
@@ -25,16 +37,29 @@ export default function UserList() {
 
   return (
     <div>
-      <h1 id="title">API Table</h1>
-      <table id="users">
+      <h1
+        id="title"
+        className="  text-black text-center md:text-6xl sm:text-5xl text-4xl font-bold md:py-6"
+      >
+        Api Table.
+      </h1>
+      <Posting />
+
+      <Table responsive striped bordered hover variant="light">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Role</th>
+            <th>Adress</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>
-      </table>
+      </Table>
     </div>
   );
 }
