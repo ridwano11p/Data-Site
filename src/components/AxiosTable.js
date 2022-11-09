@@ -7,8 +7,7 @@ import Putting from "../crud/Putting";
 import Deleting from "../crud/Deleting";
 
 export default function AxiosTable({ fixtures }) {
-  const url =
-    "https://k4w98whhc5.execute-api.ap-southeast-1.amazonaws.com/Prod/api/users";
+  const url = url;
 
   const [data, setData] = useState([]);
 

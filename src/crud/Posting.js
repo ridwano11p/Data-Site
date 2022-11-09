@@ -11,9 +11,7 @@ const Posting = () => {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [showmodal, setShowModal] = useState(false);
-  const api =
-    "https://k4w98whhc5.execute-api.ap-southeast-1.amazonaws.com/Prod/api/users";
-
+  const api = url;
   const dbdata = {
     id: id,
     userName: userName,

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "./NavBar";
 const SignupComp = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [error, setError] = useState();
+
   return (
     <div className="text-white">
       <NavBar />
@@ -27,6 +31,8 @@ const SignupComp = () => {
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                       required=""
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     ></input>
                   </div>
                   <div>
@@ -43,6 +49,8 @@ const SignupComp = () => {
                       placeholder="••••••••"
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     ></input>
                   </div>
                   <div class="flex items-center justify-between">
