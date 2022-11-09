@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Home from "./routerpaths/Home";
-import Api from "./routerpaths/Api";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +15,6 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
         </Route>
-        <Route path="/Api" element={<Api />}></Route>
       </Routes>
     </BrowserRouter>
     ;

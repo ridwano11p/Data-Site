@@ -3,8 +3,5 @@
 @tailwind utilities;
 
 body{
-    background-color: rgb(19, 8, 82);
-}
-a:hover {
-color: gold;
+    background-color: black;
 }
