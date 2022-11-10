@@ -8,7 +8,6 @@ import Deleting from "../crud/Deleting";
 
 export default function AxiosTable({ fixtures }) {
   const url = url;
-
   const [data, setData] = useState([]);
 
   const getData = (e) => {

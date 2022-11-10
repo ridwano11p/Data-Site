@@ -12,6 +12,7 @@ const Posting = () => {
   const [error, setError] = useState("");
   const [showmodal, setShowModal] = useState(false);
   const api = url;
+
   const dbdata = {
     id: id,
     userName: userName,
@@ -157,7 +158,7 @@ const Posting = () => {
               leading-tight 
               focus:outline-none focus:shadow-outline"
                       id="username"
-                      type="text"
+                      type="tel"
                       placeholder="Phone"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
