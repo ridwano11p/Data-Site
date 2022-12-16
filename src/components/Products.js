@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavBar from "./NavBar";
+import ReactDOM from "react-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -29,7 +30,10 @@ const Products = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setProductForm({ ...productForm, [name]: value });
+    setProductForm((prevProductForm) => ({
+      ...prevProductForm,
+      [name]: value,
+    }));
   };
   // handles submiting the form.
   const handleFormSubmit = (event) => {
@@ -90,9 +94,20 @@ const Products = () => {
       categoryId: "",
     });
   };
-  //checkbox functions.
-  const handleCheckboxChange = (event) => {
-    setProductForm({ ...productForm, isAvailable: event.target.checked });
+  // Availability /checkbox functions.
+  const handleAvailabilityClick = (product) => {
+    // Update the product's availability
+    const updatedProduct = { ...product, isAvailable: !product.isAvailable };
+    axios
+      .put(`http://localhost:5000/api/products/${product.id}`, updatedProduct)
+      .then((res) => {
+        // Update the products state with the updated product
+        const updatedProducts = products.map((p) =>
+          p.id === product.id ? updatedProduct : p
+        );
+        setProducts(updatedProducts);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -170,22 +185,7 @@ const Products = () => {
               className="w-2/3 p-2 rounded bg-gray-700 text-yellow-300"
             />
           </div>
-          <div className="flex mb-4">
-            <label
-              htmlFor="isAvailable"
-              className="w-1/3 font-bold text-gray-300 text-sm mr-2"
-            >
-              Availability
-            </label>
-            <input
-              type="checkbox"
-              id="isAvailable"
-              name="isAvailable"
-              checked={productForm.isAvailable}
-              onChange={handleCheckboxChange}
-              className="w-2/3 p-2 rounded bg-gray-700 border-gray-800 focus:outline-none"
-            />
-          </div>
+
           <div className="flex mb-4">
             <label
               htmlFor="categoryId"
@@ -231,7 +231,7 @@ const Products = () => {
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Description</th>
             <th className="px-4 py-2  md:w-1/3">Price</th>
-            <th className="px-4 py-2">Availability</th>
+
             <th className="px-4 py-2">Category ID</th>
             <th className="px-4 py-2">Actions</th>
           </tr>
@@ -245,9 +245,7 @@ const Products = () => {
                 {product.description}
               </td>
               <td className="border px-4 py-2 md:w-1/3">{product.price}</td>
-              <td className="border px-4 py-2 md:w-1/3">
-                {product.isAvailable ? "Available" : "Unavailable"}
-              </td>
+
               <td className="border px-4 py-2 md:w-1/3">
                 {product.categoryId}
               </td>
@@ -260,8 +258,26 @@ const Products = () => {
                 </button>
               </td>
               <td className="border px-4 py-2 md:w-1/3">
+                {product.isAvailable ? (
+                  <button
+                    className="px-4 py-2 rounded-full bg-green-500 text-white"
+                    onClick={() => handleAvailabilityClick(product)}
+                  >
+                    Available
+                  </button>
+                ) : (
+                  <button
+                    className="px-4 py-2 rounded-full bg-red-500 text-white"
+                    onClick={() => handleAvailabilityClick(product)}
+                  >
+                    Unavailable
+                  </button>
+                )}
+              </td>
+
+              <td className="border px-4 py-2 md:w-1/3">
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 md:px-6 rounded"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 md:px-6 rounded"
                   onClick={() => handleDeleteClick(product.id)}
                 >
                   Delete
