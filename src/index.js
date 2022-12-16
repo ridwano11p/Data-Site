@@ -9,6 +9,7 @@ import Home from "./routerpaths/Home";
 import Api from "./routerpaths/Api";
 import Signin from "./routerpaths/Signin";
 import Signup from "./routerpaths/Signup";
+import Productpage from "./routerpaths/Productspage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Route path="/Api" element={<Api />}></Route>
         <Route path="/Signin" element={<Signin />}></Route>
         <Route path="/Signup" element={<Signup />}></Route>
+        <Route path="/Products" element={<Productpage />}></Route>
       </Routes>
     </BrowserRouter>
     ;

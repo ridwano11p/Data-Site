@@ -1,18 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import Table from "react-bootstrap/Table";
 import Posting from "../crud/Posting";
 import Putting from "../crud/Putting";
 import Deleting from "../crud/Deleting";
 
 export default function AxiosTable({ fixtures }) {
-  const url = url;
-
   const [data, setData] = useState([]);
+  const url = "http://localhost:5000/api/users";
 
   const getData = (e) => {
-    Axios.get(url).then((json) => setData(json.data));
+    axios.get(url).then((json) => setData(json.data));
   };
   useEffect(() => {
     getData();

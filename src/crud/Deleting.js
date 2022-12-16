@@ -7,7 +7,7 @@ const Deleting = (props) => {
 
   const [error, setError] = useState("");
   const [showmodal, setShowModal] = useState(false);
-  const api = url;
+  const api = "http://localhost:5000/api/users";
 
   const dbdata = {
     id: id,

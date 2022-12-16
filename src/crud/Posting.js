@@ -11,7 +11,8 @@ const Posting = () => {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [showmodal, setShowModal] = useState(false);
-  const api = url;
+  const url = "http://localhost:5000/api/users";
+
   const dbdata = {
     id: id,
     userName: userName,
@@ -27,7 +28,8 @@ const Posting = () => {
     try {
       await axios({
         method: "post",
-        url: api,
+        url: url,
+
         data: dbdata,
         headers: { "Content-Type": "application/json" },
       });
@@ -157,7 +159,7 @@ const Posting = () => {
               leading-tight 
               focus:outline-none focus:shadow-outline"
                       id="username"
-                      type="text"
+                      type="tel"
                       placeholder="Phone"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
