@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavBar from "./NavBar";
 import ReactDOM from "react-dom";
+import ProductList from "./productsorter";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -113,6 +114,7 @@ const Products = () => {
   return (
     <div>
       <NavBar />
+      <ProductList />
       <br></br>
       {/* Add/edit product form */}
 
