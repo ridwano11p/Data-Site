@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, ul } from "react-router-dom";
+import { BsFolder2 } from "react-icons/bs";
+import { AiOutlinePlus } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 
-const ProductList = (props) => {
+const ProductList = () => {
   const [mode, setMode] = useState("all");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [visible, setVisible] = useState(false);
+
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
@@ -34,6 +36,19 @@ const ProductList = (props) => {
     setMode(event.target.value);
   };
 
+  const handleCheckboxChange = (event) => {
+    const newProducts = products.map((product) => {
+      if (product.sku === event.target.value) {
+        return {
+          ...product,
+          isAvailable: !product.isAvailable,
+        };
+      }
+      return product;
+    });
+    setProducts(newProducts);
+  };
+
   const toggleSubmenu = (sku) => {
     setSelectedCategory(selectedCategory === sku ? "" : sku);
   };
@@ -47,44 +62,80 @@ const ProductList = (props) => {
   }, {});
 
   return (
-    <div className="w-full max-w-2xl mx-auto py-8 px-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-gray-800">Products</h2>
-        <select
-          className="bg-white rounded-md border border-gray-400 px-4 py-2 leading-5 font-medium text-gray-700"
-          value={mode}
-          onChange={handleChange}
+    <>
+      <div class="flex h-screen">
+        <div
+          class="bg-blue-500 w-1/6 h-screen border-r-2 border-gray-500"
+          name="leftwindow"
+        ></div>
+        <div
+          class="bg-white w-1/3 h-screen border-r-2 border-gray-500"
+          name="middlewindow"
         >
-          <option value="all">All</option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </div>
-      {Object.keys(groupedProducts).map((sku) => (
-        <ul key={sku} className="bg-white rounded-md shadow-md overflow-hidden">
-          <li
-            className="border-b border-gray-300 p-4 font-bold text-lg text-gray-800"
-            onClick={() => toggleSubmenu(sku)}
-          >
-            {sku}
-          </li>
-          {selectedCategory === sku &&
-            groupedProducts[sku].map((product) => (
-              <li
-                key={product.id}
-                className="border-b border-gray-300 p-4 flex items-center text-blue-400"
+          <div className="" name="listwindow">
+            <div className="flex left-0">
+              <select
+                className="flex bg-white rounded-md border border-gray-400 px-4 py-2 leading-5 font-medium
+                text-gray-700 flex-shrink-0"
+                value={mode}
+                onChange={handleChange}
               >
-                <Link
-                  to={`/products/${product.id}`}
-                  className="text-lg font-bold hover:text-blue-400"
+                <option value="all">All Items</option>
+                <option value="true">Active Item Group</option>
+                <option value="false">Inactive Item Group</option>
+              </select>
+              <button className="ml-5 bg-blue-400  text-white p-2 flex items-center flex-shrink-0">
+                <AiOutlinePlus color="white" size={20} />
+                <span className="ml-2">New</span>
+              </button>
+              <div class="ml-5 border  border-gray-400 rounded-md w-[60px] flex-shrink-0">
+                <GiHamburgerMenu className="ml-3 h-10" size={30} />
+              </div>
+            </div>
+
+            <div className="overflow-y-scroll h-screen">
+              {Object.keys(groupedProducts).map((sku) => (
+                <ul
+                  key={sku}
+                  className="bg-white rounded-md shadow-md overflow-y-scroll"
                 >
-                  {product.name}
-                </Link>
-              </li>
-            ))}
-        </ul>
-      ))}
-    </div>
+                  <li
+                    className={`flex items-center p-4 cursor-pointer hover:bg-gray-200 ${
+                      selectedCategory === sku ? "text-black" : "text-blue-600"
+                    }`}
+                    onClick={() => toggleSubmenu(sku)}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <input type="checkbox" />
+                      <BsFolder2 className="ml-5" color="gray" size={20} />
+                    </div>
+                    <span className="ml-3 font-semibold text-md">{sku}</span>
+                    <span className="ml-auto text-sm font-medium text-gray-600">
+                      {groupedProducts[sku].length}
+                    </span>
+                  </li>
+                  {selectedCategory === sku && (
+                    <div className="ml-12">
+                      {groupedProducts[sku].map((product) => (
+                        <li
+                          key={product.id}
+                          className="p-4 flex items-center text-blue-600"
+                        >
+                          <span className="ml-3 font-semibold text-md">
+                            {product.name}
+                          </span>
+                        </li>
+                      ))}
+                    </div>
+                  )}
+                </ul>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-400 w-1/3 h-screen" name="rightwindow"></div>
+      </div>
+    </>
   );
 };
 

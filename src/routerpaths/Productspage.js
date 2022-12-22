@@ -1,10 +1,14 @@
 import React from "react";
-import Products from "../components/Products";
+import NavBar from "../components/NavBar";
+
+import ProductList from "../components/productsorter";
 
 const Productpage = () => {
   return (
     <div>
-      <Products />
+      <NavBar />
+
+      <ProductList />
     </div>
   );
 };
