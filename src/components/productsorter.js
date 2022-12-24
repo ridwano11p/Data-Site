@@ -3,6 +3,8 @@ import axios from "axios";
 import { BsFolder2 } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Dashboard from "./Dashboard";
+import Rightwindow from "./Rightwindow";
 
 const ProductList = () => {
   const [mode, setMode] = useState("all");
@@ -10,6 +12,7 @@ const ProductList = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [showRightWindow, setShowRightWindow] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/products").then((response) => {
@@ -64,10 +67,7 @@ const ProductList = () => {
   return (
     <>
       <div class="flex h-screen">
-        <div
-          class="bg-blue-500 w-1/6 h-screen border-r-2 border-gray-500"
-          name="leftwindow"
-        ></div>
+        <Dashboard />
         <div
           class="bg-white w-1/3 h-screen border-r-2 border-gray-500"
           name="middlewindow"
@@ -103,11 +103,18 @@ const ProductList = () => {
                     className={`flex items-center p-4 cursor-pointer hover:bg-gray-200 ${
                       selectedCategory === sku ? "text-black" : "text-blue-600"
                     }`}
-                    onClick={() => toggleSubmenu(sku)}
+                    onClick={() => {
+                      toggleSubmenu(sku);
+                      setShowRightWindow(true);
+                    }}
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <input type="checkbox" />
-                      <BsFolder2 className="ml-5" color="gray" size={20} />
+                      <BsFolder2
+                        className="ml-5  pointer-events-none "
+                        color="gray"
+                        size={20}
+                      />
                     </div>
                     <span className="ml-3 font-semibold text-md">{sku}</span>
                     <span className="ml-auto text-sm font-medium text-gray-600">
@@ -133,7 +140,18 @@ const ProductList = () => {
             </div>
           </div>
         </div>
-        <div class="bg-gray-400 w-1/3 h-screen" name="rightwindow"></div>
+        {showRightWindow && (
+          <div class="bg-white w-2/3 h-screen right-0" name="rightwindow">
+            <button
+              className="absolute  right-0 m-4 top-[60px] bg-white text-black text-2xl p-2 rounded-full"
+              onClick={() => setShowRightWindow(false)}
+            >
+              <span className="text-3xl">&times;</span>
+            </button>
+
+            <Rightwindow sku={selectedCategory} />
+          </div>
+        )}
       </div>
     </>
   );
