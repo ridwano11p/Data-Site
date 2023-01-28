@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BsFolder2 } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
+
 import { GiHamburgerMenu } from "react-icons/gi";
-import Dashboard from "./Dashboard";
+import DashBoard from "./Dashboard";
 import Rightwindow from "./Rightwindow";
+import CatagoryButtonModal from "./CatagoryButtonModal";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { CSSTransition } from "react-transition-group";
 
 const ProductList = () => {
+  //controll the mode of the list. default set to all.
   const [mode, setMode] = useState("all");
+  //a state to contain all the data from the api.
   const [products, setProducts] = useState([]);
+  //a state that shows which data should be displayed base on mode
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  //a state that tracks the selected catagory in the list
   const [selectedCategory, setSelectedCategory] = useState("");
+  //a state that shows the rightwindow
   const [showRightWindow, setShowRightWindow] = useState(false);
+  //state shwing addmodal
+  const [showModal, setShowModal] = useState(false);
+  //state showing dashboard.
+  const [showDashBoard, setShowDashBoard] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/products").then((response) => {
@@ -39,23 +50,10 @@ const ProductList = () => {
     setMode(event.target.value);
   };
 
-  const handleCheckboxChange = (event) => {
-    const newProducts = products.map((product) => {
-      if (product.sku === event.target.value) {
-        return {
-          ...product,
-          isAvailable: !product.isAvailable,
-        };
-      }
-      return product;
-    });
-    setProducts(newProducts);
-  };
-
   const toggleSubmenu = (sku) => {
     setSelectedCategory(selectedCategory === sku ? "" : sku);
   };
-
+  //prevents new skus from forming if two sku have the same name. each sku has a uniqe key value.
   const groupedProducts = filteredProducts.reduce((groups, product) => {
     if (!groups[product.sku]) {
       groups[product.sku] = [];
@@ -67,16 +65,23 @@ const ProductList = () => {
   return (
     <>
       <div class="flex h-screen">
-        <Dashboard />
+        <CSSTransition
+          in={showDashBoard}
+          timeout={300}
+          classNames="slide"
+          unmountOnExit
+        >
+          <DashBoard />
+        </CSSTransition>
         <div
-          class="bg-white w-1/3 h-screen border-r-2 border-gray-500"
+          className="bg-white  h-screen  w-1/3 border-r-2 border-gray-500"
           name="middlewindow"
         >
           <div className="" name="listwindow">
-            <div className="flex left-0">
+            <div className="flex left-0 mb-4">
               <select
-                className="flex bg-white rounded-md border border-gray-400 px-4 py-2 leading-5 font-medium
-                text-gray-700 flex-shrink-0"
+                className="bg-white rounded-md  border border-gray-400 px-4 py-2 leading-5 font-medium
+            text-gray-700 flex-shrink-0"
                 value={mode}
                 onChange={handleChange}
               >
@@ -84,67 +89,77 @@ const ProductList = () => {
                 <option value="true">Active Item Group</option>
                 <option value="false">Inactive Item Group</option>
               </select>
-              <button className="ml-5 bg-blue-400  text-white p-2 flex items-center flex-shrink-0">
-                <AiOutlinePlus color="white" size={20} />
-                <span className="ml-2">New</span>
-              </button>
-              <div class="ml-5 border  border-gray-400 rounded-md w-[60px] flex-shrink-0">
-                <GiHamburgerMenu className="ml-3 h-10" size={30} />
+
+              <CatagoryButtonModal />
+
+              <div class="ml-5 border border-gray-400 rounded-md w-30px sm:w-full flex-shrink-0">
+                <GiHamburgerMenu
+                  className="ml-3 h-10"
+                  size={30}
+                  onClick={() => setShowDashBoard(!showDashBoard)}
+                />
               </div>
             </div>
 
             <div className="overflow-y-scroll h-screen">
               {Object.keys(groupedProducts).map((sku) => (
-                <ul
+                <ListGroup
                   key={sku}
-                  className="bg-white rounded-md shadow-md overflow-y-scroll"
+                  bsClass="bg-white rounded-md shadow-md overflow-y-scroll w-full"
                 >
-                  <li
-                    className={`flex items-center p-4 cursor-pointer hover:bg-gray-200 ${
+                  <ListGroupItem
+                    className={`d-flex cursor-pointer hover:bg-gray-200 ${
                       selectedCategory === sku ? "text-black" : "text-blue-600"
                     }`}
                     onClick={() => {
                       toggleSubmenu(sku);
-                      setShowRightWindow(true);
+                      if (selectedCategory === sku) {
+                        setShowRightWindow(false);
+                      } else {
+                        setShowRightWindow(true);
+                      }
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div className="d-flex align-items-center">
                       <input type="checkbox" />
-                      <BsFolder2
-                        className="ml-5  pointer-events-none "
-                        color="gray"
-                        size={20}
-                      />
+                      <BsFolder2 className="ml-2 " color="gray" size={20} />
+                      <span className="ml-3 font-semibold text-md text-center w-full">
+                        {sku}
+                      </span>
                     </div>
-                    <span className="ml-3 font-semibold text-md">{sku}</span>
-                    <span className="ml-auto text-sm font-medium text-gray-600">
-                      {groupedProducts[sku].length}
-                    </span>
-                  </li>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <span className="ml-auto text-sm font-medium text-gray-600 text-truncate">
+                        {groupedProducts[sku].length} items
+                      </span>
+                    </div>
+                  </ListGroupItem>
                   {selectedCategory === sku && (
                     <div className="ml-12">
                       {groupedProducts[sku].map((product) => (
-                        <li
+                        <ListGroupItem
                           key={product.id}
-                          className="p-4 flex items-center text-blue-600"
+                          className="d-flex text-blue-600 align-items-center"
                         >
-                          <span className="ml-3 font-semibold text-md">
+                          <span className=" font-semibold ">
                             {product.name}
                           </span>
-                        </li>
+                        </ListGroupItem>
                       ))}
                     </div>
                   )}
-                </ul>
+                </ListGroup>
               ))}
             </div>
           </div>
         </div>
         {showRightWindow && (
-          <div class="bg-white w-2/3 h-screen right-0" name="rightwindow">
+          <div className="bg-white w-2/3 h-screen right-0" name="rightwindow">
             <button
-              className="absolute  right-0 m-4 top-[60px] bg-white text-black text-2xl p-2 rounded-full"
-              onClick={() => setShowRightWindow(false)}
+              className="absolute  right-0 m-4 top-4  text-black text-2xl p-2 rounded-full"
+              onClick={() => {
+                setShowRightWindow(false);
+                setSelectedCategory("");
+              }}
             >
               <span className="text-3xl">&times;</span>
             </button>
