@@ -1,3 +1,5 @@
+import Tableimage from "./Tableimage";
+
 const ShoppingTable = (props) => {
   const { items } = props;
 
@@ -17,12 +19,8 @@ const ShoppingTable = (props) => {
           {items.map((item) => (
             <tr>
               <td className="px-4 py-2 flex items-center border-t border-gray-200">
-                <img
-                  src="/path/to/image.jpg"
-                  alt={item.name}
-                  className="w-8 h-8 mr-2"
-                />
-                <span className="text-blue-500">{item.name}</span>
+                <Tableimage />
+                <span className=" ml-5 text-blue-500">{item.name}</span>
               </td>
               <td className="px-4 py-2 border-t border-gray-200">
                 ${item.purchaseCost}

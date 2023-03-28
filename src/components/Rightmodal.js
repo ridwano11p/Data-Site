@@ -6,6 +6,17 @@ const Rightmodal = ({ sku }) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [price, setPrice] = useState();
+  const [isAvailable, setIsAvailable] = useState();
+  const [categoryId, setCategoryId] = useState();
+  const [unit, setUnit] = useState();
+  const [manufacturer, setManufacturer] = useState();
+  const [brand, setBrand] = useState();
+  const [sellingPrice, setSellingPrice] = useState();
+
+  const [tax, setTax] = useState("");
+  const [stocksOnHand, setStocksOnHand] = useState("");
+  const [reOrderLevel, setReOrderLevel] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -68,15 +79,26 @@ const Rightmodal = ({ sku }) => {
                     onChange={onDescriptionChange}
                     placeholder="Enter description"
                   />
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      addProduct();
-                      window.location.reload();
-                    }}
-                  >
-                    Add Product
-                  </button>
+                  <br></br>
+                  <br></br>
+                  <div className="rightaddbuttoncontainer">
+                    <button
+                      className="additem"
+                      type="submit"
+                      onClick={() => {
+                        addProduct();
+                        window.location.reload();
+                      }}
+                    >
+                      Add Product
+                    </button>
+                    <buttton
+                      onClick={() => setShowModal(false)}
+                      className="canceladditem"
+                    >
+                      Cancel
+                    </buttton>
+                  </div>
                 </form>
               </div>
             </div>

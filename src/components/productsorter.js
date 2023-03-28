@@ -32,8 +32,14 @@ const ProductList = () => {
     });
   }, []);
 
+  const sortByLastUpdated = (products) => {
+    return products.sort((a, b) => {
+      return new Date(b.lastUpdated) - new Date(a.lastUpdated);
+    });
+  };
+
   useEffect(() => {
-    setFilteredProducts(filterProducts(products, mode));
+    setFilteredProducts(sortByLastUpdated(filterProducts(products, mode)));
   }, [products, mode]);
 
   const filterProducts = (products, mode) => {

@@ -3,74 +3,74 @@ import { AiOutlinePlus } from "react-icons/ai";
 import axios from "axios";
 
 const CatagoryButtonModal = () => {
+  const [sku, setSku] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [isAvailable, setIsAvailable] = useState(true);
+  const [categoryId, setCategoryId] = useState("");
+  const [unit, setUnit] = useState("");
+  const [manufacturer, setManufacturer] = useState("");
+  const [brand, setBrand] = useState("");
+  const [sellingPrice, setSellingPrice] = useState("");
+
+  const [tax, setTax] = useState("");
+  const [stocksOnHand, setStocksOnHand] = useState("");
+  const [reOrderLevel, setReOrderLevel] = useState("");
+  const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const url = "http://localhost:5000/api/products";
 
-  const [formData, setFormData] = useState({
-    sku: "",
-    name: "",
-    description: "",
-    price: "",
-    isAvailable: true,
-    categoryId: "",
-    unit: "",
-    manufacturer: "",
-    brand: "",
-    sellingPrice: "",
-    purchaseCost: "",
-    tax: "",
-    stocksOnHand: "",
-    reOrderLevel: "",
-  });
+  const productData = {
+    sku: sku,
+    name: name,
+    description: description,
+    price: price,
+    isAvailable: isAvailable,
+    categoryId: categoryId,
+    unit: unit,
+    manufacturer: manufacturer,
+    brand: brand,
+    sellingPrice: sellingPrice,
 
-  const handleIsAvailable = (e) => {
-    setFormData({
-      ...formData,
-      isAvailable: e.target.value === "true",
-    });
+    tax: tax,
+    stocksOnHand: stocksOnHand,
+    reOrderLevel: reOrderLevel,
   };
 
-  const handleChange = (e) => {
-    if (e.target.name === "isAvailable") {
-      handleIsAvailable(e);
-    } else {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
-    }
-  };
-  const submitForm = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/products",
-        formData
-      );
-      console.log(res);
-      setFormData({
-        sku: "",
-        name: "",
-        description: "",
-        price: "",
-        isAvailable: true,
-        categoryId: "",
-        unit: "",
-        manufacturer: "",
-        brand: "",
-        sellingPrice: "",
-        purchaseCost: "",
-        tax: "",
-        stocksOnHand: "",
-        reOrderLevel: "",
+      await axios({
+        method: "post",
+        url: url,
+        data: productData,
+        headers: { "Content-Type": "application/json" },
       });
-      setShowModal(false);
-      window.location.reload(); // this will reload the page
-    } catch (err) {
-      console.error(err);
-      alert(
-        "An error has occurred while creating the product, please try again later"
-      );
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
     }
+    setSku("");
+    setName("");
+    setDescription("");
+    setPrice("");
+    setIsAvailable(true);
+    setCategoryId("");
+    setUnit("");
+    setManufacturer("");
+    setBrand("");
+    setSellingPrice("");
+
+    setTax("");
+    setStocksOnHand("");
+    setReOrderLevel("");
+    setShowModal(false);
+    window.location.reload();
+  };
+  const handleIsAvailable = (event) => {
+    setIsAvailable(event.target.checked);
   };
 
   return (
@@ -85,238 +85,143 @@ const CatagoryButtonModal = () => {
       </button>
       {showModal ? (
         <>
-          <div className="modal-overlay"></div>
-          <div className="modal-container">
-            <div className="modal-header">
-              <div className="form-container">
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">SKU:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="sku"
-                          value={formData.sku}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Name:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">Description:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="description"
-                          value={formData.description}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
+          <div id="rightmodal">
+            <div id="modal-content">
+              <div>
+                <form onSubmit={handleSubmit}>
+                  <div class="input-grid">
+                    <div className="input-div">
+                      <label className="input-label">SKU</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={sku}
+                        onChange={(e) => setSku(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Name</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Description</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Price</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Is Available</label>
+                      <input
+                        className="checkbox-field"
+                        type="checkbox"
+                        checked={isAvailable}
+                        onChange={handleIsAvailable}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Category ID</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={categoryId}
+                        onChange={(e) => setCategoryId(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Unit</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={unit}
+                        onChange={(e) => setUnit(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Manufacturer</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={manufacturer}
+                        onChange={(e) => setManufacturer(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Brand</label>
+                      <input
+                        className="input-field"
+                        type="text"
+                        value={brand}
+                        onChange={(e) => setBrand(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Selling Price</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={sellingPrice}
+                        onChange={(e) => setSellingPrice(e.target.value)}
+                      ></input>
+                    </div>
 
-                  <div className="form-field">
-                    <label className="form-label">Price:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="price"
-                          value={formData.price}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
+                    <div className="input-div">
+                      <label className="input-label">Tax</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={tax}
+                        onChange={(e) => setTax(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Stocks on Hand</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={stocksOnHand}
+                        onChange={(e) => setStocksOnHand(e.target.value)}
+                      />
+                    </div>
+                    <div className="input-div">
+                      <label className="input-label">Re-Order Level</label>
+                      <input
+                        className="input-field"
+                        type="number"
+                        value={reOrderLevel}
+                        onChange={(e) => setReOrderLevel(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">Unit:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="unit"
-                          value={formData.unit}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
+                  <div className="rightaddbuttoncontainer">
+                    <button className="additem" type="submit">
+                      Submit
+                    </button>
+                    <button
+                      onClick={() => setShowModal(false)}
+                      class="canceladditem"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
                   </div>
-                  <div className="form-field">
-                    <label className="form-label">Manufacturer:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="manufacturer"
-                          value={formData.manufacturer}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">Brand:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="brand"
-                          value={formData.brand}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Selling Price:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="sellingPrice"
-                          value={formData.sellingPrice}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">Purchase Cost:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="purchaseCost"
-                          value={formData.purchaseCost}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Tax:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="tax"
-                          value={formData.tax}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-field">
-                    <label className="form-label">Stocks on Hand:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="stocksOnHand"
-                          value={formData.stocksOnHand}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Re-Order Level:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="reOrderLevel"
-                          value={formData.reOrderLevel}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Category ID:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <input
-                          type="text"
-                          name="categoryId"
-                          value={formData.categoryId}
-                          onChange={handleChange}
-                          className="form-input"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="form-field">
-                    <label className="form-label">Availability:</label>
-                    <form onSubmit={submitForm}>
-                      <div>
-                        <select
-                          name="isAvailable"
-                          value={formData.isAvailable ? "true" : "false"}
-                          onChange={handleChange}
-                          className="form-input"
-                        >
-                          <option value="true">Available</option>
-                          <option value="false">Not Available</option>
-                        </select>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-
-                <div className="lastbuttons">
-                  <button
-                    type="button"
-                    className="submitbutton"
-                    onClick={submitForm}
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    className="closebutton"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>

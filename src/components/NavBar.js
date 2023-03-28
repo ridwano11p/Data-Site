@@ -1,37 +1,35 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import profile from "../images/prof.jpg";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import React from "react";
-
 const NavBar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <div>
-      <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand>
-            <Link to={"/"}>Berts Wearhouse</Link>
-          </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link>
-              <Link to={"/"}> Home</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to={"/Api"}>Api</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to={"/Products"}>Products</Link>
-            </Nav.Link>
-          </Nav>
-          <Navbar.Collapse className="justify-content-end">
-            <img src={profile} alt="profile" className="nav-profile-picture" />
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+    <nav className="topnav">
+      <Link to="/" className="topnav-title">
+        Berts Wearhouse
+      </Link>
+      <div className="menu-toggle" onClick={handleMenuToggle}>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </div>
+      <div className={`topnav-links ${menuOpen ? "open" : ""}`}>
+        <Link to="/" className="topnav-link">
+          Home
+        </Link>
+        <Link to="/Api" className="topnav-link">
+          Api
+        </Link>
+        <Link to="/Products" className="topnav-link">
+          Products
+        </Link>
+      </div>
+    </nav>
   );
 };
 

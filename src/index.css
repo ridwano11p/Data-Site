@@ -6,17 +6,70 @@
 a:hover {
 color: gold;
 }
-#herobody{
-    background-image: url("./images/image1.jpg");
+/*navbar styling*/
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgb(10, 82, 104);
+  color: #fff;
+  position: relative;
 }
-/*navbar profile */
-.nav-profile-picture {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 15px;
-  border: 2px solid #007bff;
+
+.topnav-title {
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.topnav-links {
+  display: flex;
+}
+
+.topnav-link {
+  margin-left: 1rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 2px;
+  background-color: #fff;
+  margin: 5px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .topnav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .topnav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    padding: 1rem;
+  }
+  .topnav-links.open {
+    display: flex;
+    flex-direction: column;
+  }
+  .menu-toggle {
+    display: block;
+  }
 }
 
 
@@ -40,82 +93,69 @@ color: gold;
     transition: transform 300ms ease-out;
   }
   /*Hero homepage css*/
-  .Hero.css
-.bg-white {
-    background-color: white;
-}
-
-.text-black {
-    color: black;
-}
+  
+  .hero {
+    background-image: url("https://t3.ftcdn.net/jpg/03/15/34/90/360_F_315349043_6ohfFyx37AFusCKZtGQtJR0jqUxhb25Y.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 800px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero__boxes {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+  
+  .hero__box {
+    width: 30%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .hero__box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hero__box-text {
+    font-size: 20px;
+    line-height: 30px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .hero__button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #444444;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .hero__button:hover {
+    background-color: #666666;
+  }
+  
+  
+  
 /*css for the catagorybuttonmodal*/
-/* The modal overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
 
-/* The modal container */
-.modal-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f5f5f5;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-  z-index: 11;
-  width: 550px;
-}
-
-/* The form container */
-.form-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -15px;
-}
-
-/* The form row */
-.form-row {
-  width: 100%;
-  display: flex;
-  margin-bottom: 15px;
-}
-
-/* The form field */
-.form-field {
-  width: 100%;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-
-/* The form label */
-.form-label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-/* The form input */
-.form-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
-  font-size: 1rem;
-  color: #333;
-}
-
-/* The show modal button */
 .showmodalbutton {
   margin-left: 5px;
   background-color: #4299E1;
@@ -133,66 +173,40 @@ color: gold;
 .showmodalbutton:hover {
   background-color: #3182ce;
 }
-
-/* The div containing the buttons */
-.lastbuttons-parent {
-  width: 100%;
+.input-div {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-/* The submit button */
-.submitbutton {
-  background-color: #28a745;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-}
-/* The submit button :hover state */
-.submitbutton:hover {
-  background-color: #218838;
+.input-label {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-/* The close button */
-.closebutton {
-  background-color: #dc3545;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-right: 15px;
+.input-field, .checkbox-field {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-/* The close button :hover state */
-.closebutton:hover {
-  background-color: #c82333;
+.checkbox-field {
+
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: none;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 
-/* Media query for screens smaller than 400px */
-@media (max-width: 400px) {
-  .modal-container {
-    width: 90%;
-    top: 10%;
-    left: 5%;
-    transform: none;
-    padding: 0.5rem;
-  }
-  .form-field {
-    width: 100%;
-  }
-  .submitbutton,
-  .closebutton {
-    width: 100%;
-    margin-top: 0.5rem;
-    margin-left: 0;
-  }
-}
-/*rightmodal css*/
+/* general modal css*/
 #rightmodal {
   position: fixed;
   top: 0;
@@ -207,9 +221,110 @@ color: gold;
   position: fixed;
   background-color: #FFF;
   width: 50%;
-  left: 25%;
-  top: 25%;
+  height: 80%;
+  overflow-y: scroll;
+  left: 35%;
+  top: 50%;
+  transform: translateY(-50%);
   padding: 25px;
   box-sizing: border-box;
   z-index: 1000;
 }
+/*rightaddmodal styling*/
+.rightaddbuttoncontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.additem {
+  background-color: green;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.additem:hover {
+  background-color: lightgreen;
+  transform: scale(1.1);
+}
+
+.canceladditem {
+  background-color: red;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.canceladditem:hover {
+  background-color: darkred;
+  transform: scale(1.1);
+}
+
+@media (max-width: 767px) {
+  .additem {
+    font-size: 0.8rem;
+    padding: 10px 15px;
+  }
+
+  .canceladditem {
+    font-size: 0.8rem;
+    padding: 10px 15px;
+  }
+}
+
+
+/*righteditmodal styling.*/
+
+  
+
+  .inputcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  }
+  
+  @media only screen and (max-width: 767px) {
+  .inputcontainer {
+  flex-direction: column;
+  align-items: center;
+  }
+  }
+  
+  .inputlabel {
+  font-weight: bold;
+  margin-bottom: 10px;
+  }
+  
+  .inputstyle {
+  width: 45%;
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  }
+  
+  @media only screen and (max-width: 767px) {
+  .inputstyle {
+  width: 90%;
+  margin-bottom: 20px;
+  }
+  }
+  /*styling to make all the blue style buttons not rounded*/
+  .stylebutton {
+    white-space: nowrap;
+    min-width: 90px;
+  }

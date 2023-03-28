@@ -15,10 +15,10 @@ const RightwindowEdit = (props) => {
   const [manufacturer, setManufacturer] = useState(props.item.manufacturer);
   const [brand, setBrand] = useState(props.item.brand);
   const [sellingPrice, setSellingPrice] = useState(props.item.sellingPrice);
-  const [purchaseCost, setPurchaseCost] = useState(props.item.purchaseCost);
-  const [tax, setTax] = useState("");
-  const [stocksOnHand, setStocksOnHand] = useState("");
-  const [reOrderLevel, setReOrderLevel] = useState("");
+
+  const [tax, setTax] = useState(props.item.tax);
+  const [stocksOnHand, setStocksOnHand] = useState(props.item.stocksOnHand);
+  const [reOrderLevel, setReOrderLevel] = useState(props.item.reOrderLevel);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
 
@@ -27,6 +27,17 @@ const RightwindowEdit = (props) => {
     sku: sku,
     name: name,
     description: description,
+    price: price,
+    isAvailable: isAvailable,
+    categoryId: categoryId,
+    unit: unit,
+    manufacturer: manufacturer,
+    brand: brand,
+    sellingPrice: sellingPrice,
+
+    tax: tax,
+    stocksOnHand: stocksOnHand,
+    reOrderLevel: reOrderLevel,
   };
 
   function PreFillForm() {
@@ -53,6 +64,15 @@ const RightwindowEdit = (props) => {
     setSku("");
     setName("");
     setDescription("");
+    setPrice("");
+    setIsAvailable("");
+    setCategoryId("");
+    setUnit("");
+    setManufacturer("");
+    setBrand("");
+    setSellingPrice("");
+    setStocksOnHand("");
+    setReOrderLevel("");
 
     setShowModal(false);
     window.location.reload();
@@ -75,75 +95,174 @@ const RightwindowEdit = (props) => {
           <div id="rightmodal">
             <div id="modal-content">
               <div>
-                <form onSubmit={handleSubmit}>
-                  <div class="mb-6">
-                    <label
-                      class="block text-gray-700 text-sm font-bold mb-2"
-                      for="username"
-                    >
-                      catagory name
+                <form onSubmit={handleSubmit} className="editform">
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="catagoryname">
+                      Catagory name
                     </label>
                     <input
-                      class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 
-              leading-tight 
-              focus:outline-none focus:shadow-outline"
-                      id="username"
+                      class="inputstyle"
+                      id="catagoryname"
                       type="text"
-                      placeholder="User Name"
                       value={sku}
                       onChange={(e) => setSku(e.target.value)}
                     ></input>
                   </div>
-                  <div class="mb-6">
-                    <label
-                      class="block text-gray-700 text-sm font-bold mb-2"
-                      for="username"
-                    >
-                      product name
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Product name
                     </label>
                     <input
-                      class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 
-              leading-tight 
-              focus:outline-none focus:shadow-outline"
-                      id="username"
+                      class="inputstyle"
+                      id="productname"
                       type="text"
-                      placeholder="User Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     ></input>
                   </div>
-                  <div class="mb-6">
-                    <label
-                      class="block text-gray-700 text-sm font-bold mb-2"
-                      for="username"
-                    >
-                      product description
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Product description
                     </label>
                     <input
-                      class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 
-              leading-tight 
-              focus:outline-none focus:shadow-outline"
-                      id="username"
+                      class="inputstyle"
+                      id="productdescription."
                       type="text"
-                      placeholder="User Name"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></input>
                   </div>
-                  <div className="flex space-x-4 ">
-                    <button
-                      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none 
-              focus:shadow-outline"
-                      type="submit"
-                    >
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Price
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="price"
+                      type="number"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      IsAvailable
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="isavailable"
+                      type="checkbox"
+                      value={isAvailable}
+                      onChange={(e) => setIsAvailable(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      CategoryId
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="categoryid"
+                      type="number"
+                      value={categoryId}
+                      onChange={(e) => setCategoryId(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Unit
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="unit"
+                      type="text"
+                      value={unit}
+                      onChange={(e) => setUnit(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Manufacturer
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="manufacturer"
+                      type="text"
+                      value={manufacturer}
+                      onChange={(e) => setManufacturer(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Brand
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="brand"
+                      type="text"
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                    ></input>
+                  </div>
+
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Selling Price
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="sellingprice"
+                      type="text"
+                      value={sellingPrice}
+                      onChange={(e) => setSellingPrice(e.target.value)}
+                    ></input>
+                  </div>
+
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Tax
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="tax"
+                      type="text"
+                      value={tax}
+                      onChange={(e) => setTax(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Stock on hand.
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="stockonhand"
+                      type="text"
+                      value={stocksOnHand}
+                      onChange={(e) => setStocksOnHand(e.target.value)}
+                    ></input>
+                  </div>
+                  <div class="inputcontainer">
+                    <label class="inputlabel" for="username">
+                      Reorder Level
+                    </label>
+                    <input
+                      class="inputstyle"
+                      id="username"
+                      type="text"
+                      value={reOrderLevel}
+                      onChange={(e) => setReOrderLevel(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="rightaddbuttoncontainer ">
+                    <button className="additem" type="submit">
                       Submit
                     </button>
                     <button
                       onClick={() => {
                         setShowModal(false);
                       }}
-                      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none 
-              focus:shadow-outline"
+                      class="canceladditem"
                       type="button"
                     >
                       Cancel

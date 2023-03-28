@@ -47,7 +47,7 @@ const Rightwindow = (props) => {
             Current iD ( {matchingItem ? matchingItem.categoryId : "N/A"})
           </h1>
 
-          <p className="text-blue-600">(items {skuItems.length})</p>
+          <p className="text-green-600">(items {skuItems.length})</p>
           <br></br>
           <br></br>
 
@@ -75,7 +75,7 @@ const Rightwindow = (props) => {
               <br></br>
               <div class="flex mx-8 justify-end w-1/2 mr-[130px]">
                 {skuItems.map((item) => (
-                  <button className="bg-blue-500 text-white font-bold py-1 px-2 rounded-full text-sm mr-2">
+                  <button className=" stylebutton bg-blue-500 text-white font-bold py-1 px-2 rounded-full text-sm mr-2">
                     {item.name}
                   </button>
                 ))}
